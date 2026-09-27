@@ -12,7 +12,11 @@ from datetime import datetime, timedelta
 
 from tradingagents.dataflows.config import get_config
 from tradingagents.dataflows.date_window import coverage_gap, in_window
-from tradingagents.dataflows.errors import NoMarketDataError, VendorNotConfiguredError, VendorRateLimitError
+from tradingagents.dataflows.errors import (
+    NoMarketDataError,
+    VendorNotConfiguredError,
+    VendorRateLimitError,
+)
 from tradingagents.dataflows.net import get_scrubbed
 
 API_URL = "https://newsdata.io/api/1/market"
