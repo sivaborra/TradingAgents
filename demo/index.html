@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Explore a static, fictional sample of TradingAgents' optional Laya shadow assessments."
+    >
+    <meta name="theme-color" content="#0b1020">
+    <title>Laya Shadow Assessment | TradingAgents Sample</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0b1020;
+        color: #ecf2ff;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        --muted: #a5b1ca;
+        --line: #26324a;
+        --panel: #111a2e;
+        --accent: #7ce0c3;
+        --accent-dark: #113e3b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        min-height: 100vh;
+        background:
+          radial-gradient(ellipse at 84% 0%, rgb(38 93 105 / 25%), transparent 34rem),
+          #0b1020;
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 25px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        color: #ecf2ff;
+        font-size: 0.94rem;
+        font-weight: 750;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+      }
+
+      .brand span {
+        color: var(--accent);
+      }
+
+      .header-link {
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      main {
+        padding: 64px 0 56px;
+      }
+
+      .eyebrow {
+        margin: 0 0 16px;
+        color: var(--accent);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        font-size: clamp(2.2rem, 6vw, 4.3rem);
+        line-height: 1.04;
+        letter-spacing: -0.055em;
+      }
+
+      .lede {
+        max-width: 720px;
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.7;
+      }
+
+      .safe-banner {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        max-width: 920px;
+        margin: 30px 0 36px;
+        padding: 15px 18px;
+        border: 1px solid #38665c;
+        border-radius: 12px;
+        background: rgb(17 62 59 / 40%);
+        color: #d5fff2;
+        line-height: 1.55;
+      }
+
+      .safe-banner strong {
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .safe-icon {
+        flex: 0 0 auto;
+        font-size: 1.1rem;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(245px, 0.72fr) minmax(0, 1.6fr);
+        gap: 22px;
+        align-items: start;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--panel);
+        box-shadow: 0 18px 60px rgb(0 0 0 / 18%);
+      }
+
+      .controls {
+        position: sticky;
+        top: 20px;
+        padding: 23px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.15rem;
+        letter-spacing: -0.02em;
+      }
+
+      .control-copy {
+        margin: 9px 0 24px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.88rem;
+        font-weight: 700;
+      }
+
+      select,
+      button {
+        width: 100%;
+        min-height: 48px;
+        border-radius: 9px;
+        font: inherit;
+      }
+
+      select {
+        padding: 0 12px;
+        border: 1px solid #3b4963;
+        background: #0b1020;
+        color: #ecf2ff;
+      }
+
+      button {
+        margin-top: 13px;
+        padding: 0 16px;
+        border: 0;
+        background: var(--accent);
+        color: #06201c;
+        cursor: pointer;
+        font-weight: 800;
+        transition: filter 120ms ease, transform 120ms ease;
+      }
+
+      button:hover {
+        filter: brightness(1.08);
+      }
+
+      button:active {
+        transform: translateY(1px);
+      }
+
+      :focus-visible {
+        outline: 3px solid #f9d879;
+        outline-offset: 3px;
+      }
+
+      .sample-note {
+        margin: 17px 0 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+        line-height: 1.55;
+      }
+
+      .results {
+        padding: 23px;
+      }
+
+      .results-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .results-header p {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .sample-tag {
+        flex: 0 0 auto;
+        padding: 6px 9px;
+        border: 1px solid #49615b;
+        border-radius: 999px;
+        color: #bbf6df;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .assessment-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .assessment {
+        padding: 17px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #0d1425;
+      }
+
+      .assessment-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+      }
+
+      .assessment h3 {
+        margin: 0;
+        font-size: 0.97rem;
+      }
+
+      .choice {
+        color: var(--accent);
+        font-size: 0.89rem;
+        font-weight: 800;
+        text-align: right;
+      }
+
+      .reasoning {
+        margin: 8px 0 14px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        line-height: 1.55;
+      }
+
+      .probabilities {
+        display: grid;
+        gap: 8px;
+      }
+
+      .probability {
+        display: grid;
+        grid-template-columns: minmax(116px, 0.75fr) minmax(70px, 1fr) 42px;
+        gap: 10px;
+        align-items: center;
+        color: #c4cee1;
+        font-size: 0.77rem;
+      }
+
+      .probability-label {
+        overflow-wrap: anywhere;
+      }
+
+      .bar {
+        height: 7px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #26324a;
+      }
+
+      .bar span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: #65cdb2;
+      }
+
+      .probability-value {
+        color: #ecf2ff;
+        font-variant-numeric: tabular-nums;
+        text-align: right;
+      }
+
+      .caveat {
+        margin: 19px 1px 0;
+        color: #aeb9cf;
+        font-size: 0.79rem;
+        line-height: 1.6;
+      }
+
+      .about {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      .about article {
+        padding: 19px;
+      }
+
+      .about h2 {
+        margin-bottom: 9px;
+        font-size: 0.95rem;
+      }
+
+      .about p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.83rem;
+        line-height: 1.6;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 25px 0 34px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      @media (max-width: 760px) {
+        main {
+          padding-top: 44px;
+        }
+
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          position: static;
+        }
+
+        .about {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 460px) {
+        .shell {
+          width: min(100% - 26px, 1120px);
+        }
+
+        header {
+          align-items: flex-start;
+        }
+
+        .header-link {
+          max-width: 130px;
+          text-align: right;
+        }
+
+        .results,
+        .controls {
+          padding: 17px;
+        }
+
+        .assessment {
+          padding: 13px;
+        }
+
+        .probability {
+          grid-template-columns: minmax(96px, 0.8fr) minmax(45px, 1fr) 38px;
+          gap: 7px;
+        }
+
+        footer {
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <a class="brand" href="https://github.com/sivaborra/TradingAgents">
+          Trading<span>Agents</span>
+        </a>
+        <a
+          class="header-link"
+          href="https://github.com/sivaborra/TradingAgents/tree/fix/aggregate-news-providers"
+        >
+          Explore the fork on GitHub
+        </a>
+      </header>
+
+      <main>
+        <p class="eyebrow">Optional shadow assessment · static sample</p>
+        <h1>See how Laya assessments fit into a trading workflow.</h1>
+        <p class="lede">
+          Explore an illustrative set of research, trader, risk, and portfolio labels alongside
+          their class probabilities. In the full integration, Laya observes the workflow as a
+          shadow model: it does not make or change the Portfolio Manager's decision.
+        </p>
+
+        <div class="safe-banner" role="note">
+          <span class="safe-icon" aria-hidden="true">i</span>
+          <div>
+            <strong>Safe sample — no live model or market data</strong>
+            This page uses fictional scenarios and hard-coded example outputs. It makes no network
+            requests, needs no API keys, and cannot place trades.
+          </div>
+        </div>
+
+        <section class="layout" aria-label="Interactive sample">
+          <form class="panel controls" id="sample-form">
+            <h2>Choose an example</h2>
+            <p class="control-copy">
+              Switch between two fictional scenarios. The sample results are fixed and do not call
+              TradingAgents or Laya.
+            </p>
+            <label for="scenario">Scenario</label>
+            <select id="scenario" name="scenario">
+              <option value="balanced">ALPHA — balanced evidence</option>
+              <option value="risk">BETA — elevated risk</option>
+            </select>
+            <button type="submit">Show sample assessment</button>
+            <p class="sample-note">
+              These examples illustrate the display format only. They are not model-generated
+              recommendations or investment research.
+            </p>
+          </form>
+
+          <section class="panel results" aria-labelledby="results-title" aria-live="polite">
+            <div class="results-header">
+              <div>
+                <h2 id="results-title">Example assessment</h2>
+                <p id="scenario-caption">ALPHA · balanced fictional evidence</p>
+              </div>
+              <span class="sample-tag">Static example</span>
+            </div>
+            <div class="assessment-list" id="assessment-list"></div>
+            <p class="caveat">
+              Probabilities here are illustrative probabilities over answer classes, not
+              probabilities of profit or investment success. In the real integration, assessments
+              are optional and shadow-only; the Portfolio Manager remains responsible for its own
+              decision.
+            </p>
+          </section>
+        </section>
+
+        <section class="about" aria-label="About this demo">
+          <article class="panel">
+            <h2>What this demonstrates</h2>
+            <p>
+              The optional integration records a typed assessment at the research, trader, risk,
+              and portfolio stages, with a class-probability distribution where available.
+            </p>
+          </article>
+          <article class="panel">
+            <h2>What it does not do</h2>
+            <p>
+              This webpage does not run the Python graph, call the Ollaya API, fetch current
+              financial data, or produce actionable financial advice.
+            </p>
+          </article>
+          <article class="panel">
+            <h2>Try the source project</h2>
+            <p>
+              Review the
+              <a href="https://github.com/sivaborra/TradingAgents/blob/fix/aggregate-news-providers/tradingagents/graph/laya_decision.py">
+                Laya adapter
+              </a>
+              and the
+              <a href="https://github.com/sivaborra/TradingAgents/blob/fix/aggregate-news-providers/README.md">
+                project setup instructions
+              </a>
+              to run the Python integration with your own configuration.
+            </p>
+          </article>
+        </section>
+      </main>
+
+      <footer>
+        <span>Research software · Not investment advice</span>
+        <span>Static sample · No credentials or requests</span>
+      </footer>
+    </div>
+
+    <script>
+      const examples = {
+        balanced: {
+          caption: "ALPHA · balanced fictional evidence",
+          assessments: [
+            {
+              stage: "Research synthesis",
+              choice: "Bullish",
+              reasoning: "Mixed evidence, with a modest positive tilt in the supplied example.",
+              probabilities: [
+                ["Bullish", 62],
+                ["Bearish", 18],
+                ["Insufficient evidence", 20],
+              ],
+            },
+            {
+              stage: "Trader proposal",
+              choice: "Supported",
+              reasoning: "The fictional proposal is broadly consistent with the example evidence.",
+              probabilities: [
+                ["Supported", 68],
+                ["Not supported", 14],
+                ["Insufficient evidence", 18],
+              ],
+            },
+            {
+              stage: "Risk review",
+              choice: "Reduce",
+              reasoning: "The sample risk response tempers the positive research view.",
+              probabilities: [
+                ["Proceed", 31],
+                ["Reduce", 51],
+                ["Reject", 18],
+              ],
+            },
+            {
+              stage: "Final portfolio action",
+              choice: "Hold",
+              reasoning: "The fictional portfolio example retains the existing position.",
+              probabilities: [
+                ["Buy", 12],
+                ["Overweight", 8],
+                ["Hold", 54],
+                ["Trim", 19],
+                ["Sell", 4],
+                ["Insufficient evidence", 3],
+              ],
+            },
+          ],
+        },
+        risk: {
+          caption: "BETA · elevated-risk fictional evidence",
+          assessments: [
+            {
+              stage: "Research synthesis",
+              choice: "Insufficient evidence",
+              reasoning: "The example contains conflicting signals and limited company-specific support.",
+              probabilities: [
+                ["Bullish", 29],
+                ["Bearish", 33],
+                ["Insufficient evidence", 38],
+              ],
+            },
+            {
+              stage: "Trader proposal",
+              choice: "Not supported",
+              reasoning: "The sample proposal is not sufficiently supported by the supplied facts.",
+              probabilities: [
+                ["Supported", 21],
+                ["Not supported", 61],
+                ["Insufficient evidence", 18],
+              ],
+            },
+            {
+              stage: "Risk review",
+              choice: "Reject",
+              reasoning: "The fictional example prioritizes its stated portfolio risk constraints.",
+              probabilities: [
+                ["Proceed", 9],
+                ["Reduce", 34],
+                ["Reject", 57],
+              ],
+            },
+            {
+              stage: "Final portfolio action",
+              choice: "Trim",
+              reasoning: "The sample action illustrates reducing exposure without fully exiting.",
+              probabilities: [
+                ["Buy", 3],
+                ["Overweight", 2],
+                ["Hold", 18],
+                ["Trim", 55],
+                ["Sell", 17],
+                ["Insufficient evidence", 5],
+              ],
+            },
+          ],
+        },
+      };
+
+      const list = document.querySelector("#assessment-list");
+      const caption = document.querySelector("#scenario-caption");
+
+      function makeProbabilityRow([label, value]) {
+        const row = document.createElement("div");
+        row.className = "probability";
+
+        const name = document.createElement("span");
+        name.className = "probability-label";
+        name.textContent = label;
+
+        const track = document.createElement("span");
+        track.className = "bar";
+        track.setAttribute("aria-hidden", "true");
+        const fill = document.createElement("span");
+        fill.style.width = `${value}%`;
+        track.append(fill);
+
+        const amount = document.createElement("span");
+        amount.className = "probability-value";
+        amount.textContent = `${value}%`;
+
+        row.append(name, track, amount);
+        return row;
+      }
+
+      function renderExample(example) {
+        caption.textContent = example.caption;
+        const cards = example.assessments.map((assessment) => {
+          const card = document.createElement("article");
+          card.className = "assessment";
+
+          const top = document.createElement("div");
+          top.className = "assessment-top";
+          const title = document.createElement("h3");
+          title.textContent = assessment.stage;
+          const choice = document.createElement("span");
+          choice.className = "choice";
+          choice.textContent = assessment.choice;
+          top.append(title, choice);
+
+          const reasoning = document.createElement("p");
+          reasoning.className = "reasoning";
+          reasoning.textContent = assessment.reasoning;
+
+          const probabilities = document.createElement("div");
+          probabilities.className = "probabilities";
+          probabilities.setAttribute("aria-label", "Illustrative class probabilities");
+          probabilities.append(...assessment.probabilities.map(makeProbabilityRow));
+
+          card.append(top, reasoning, probabilities);
+          return card;
+        });
+        list.replaceChildren(...cards);
+      }
+
+      document.querySelector("#sample-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const scenario = document.querySelector("#scenario").value;
+        renderExample(examples[scenario]);
+      });
+
+      renderExample(examples.balanced);
+    </script>
+  </body>
+</html>

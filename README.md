@@ -29,6 +29,8 @@
 
 # TradingAgents: Multi-Agents LLM Financial Trading Framework
 
+> 🧪 **[Try the Laya sample demo](https://sivaborra.github.io/TradingAgents/)** — an interactive, static illustration of the optional Laya shadow-assessment output. It uses fictional examples only, makes no API calls, and does not run the model or trading agents.
+
 ## News
 
 <!-- news:start -->
