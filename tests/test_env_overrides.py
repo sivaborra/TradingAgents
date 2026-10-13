@@ -24,6 +24,10 @@ def test_no_env_uses_built_in_defaults(monkeypatch):
     assert config["deep_think_llm"] == "gpt-6-sol"
     assert config["quick_think_llm"] == "gpt-6-luna"
     assert config["backend_url"] is None
+    assert config["laya_shadow_enabled"] is False
+    assert config["laya_base_url"] is None
+    assert config["laya_model"] == "laya:latest"
+    assert config["laya_timeout"] == 45
     assert config["max_debate_rounds"] == 1
     assert config["checkpoint_enabled"] is False
 
@@ -42,6 +46,20 @@ def test_string_overrides(monkeypatch):
     assert config["quick_think_llm"] == "gemini-3-flash-preview"
     assert config["backend_url"] == "https://example.invalid/v1"
     assert config["output_language"] == "Chinese"
+
+
+def test_laya_settings_are_environment_configurable(monkeypatch):
+    config = _config_with_env(
+        monkeypatch,
+        TRADINGAGENTS_LAYA_SHADOW_ENABLED="true",
+        TRADINGAGENTS_LAYA_BASE_URL="http://127.0.0.1:11435",
+        TRADINGAGENTS_LAYA_MODEL="laya:en",
+        TRADINGAGENTS_LAYA_TIMEOUT="60",
+    )
+    assert config["laya_shadow_enabled"] is True
+    assert config["laya_base_url"] == "http://127.0.0.1:11435"
+    assert config["laya_model"] == "laya:en"
+    assert config["laya_timeout"] == 60
 
 
 def test_int_coercion(monkeypatch):

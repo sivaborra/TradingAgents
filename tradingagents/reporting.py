@@ -10,6 +10,7 @@ from datetime import datetime
 from pathlib import Path
 
 from tradingagents.agents.rating import run_rating
+from tradingagents.graph.laya_decision import render_laya_assessments
 
 
 def analyst_names(keys) -> list[str]:
@@ -100,6 +101,13 @@ def write_report_tree(final_state: dict, ticker: str, save_path, settings: dict 
     save_path = Path(save_path)
     save_path.mkdir(parents=True, exist_ok=True)
     parts = _report_parts(final_state)
+    laya_summary = render_laya_assessments(final_state.get("laya_assessments"))
+    if laya_summary:
+        parts.append((
+            "VI. Laya Shadow Assessments",
+            "5_portfolio",
+            [("Laya Shadow Assessments", "laya_shadow.md", laya_summary)],
+        ))
     sections = []
     for heading, folder, written in parts:
         (save_path / folder).mkdir(exist_ok=True)

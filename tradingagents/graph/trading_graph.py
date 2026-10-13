@@ -21,6 +21,7 @@ from tradingagents.reporting import write_report_tree
 
 from .checkpointer import checkpoint_step, clear_checkpoint, get_checkpointer, thread_id
 from .conditional_logic import ConditionalLogic
+from .laya_decision import LayaDecisionAdapter
 from .propagation import Propagator
 from .setup import GraphSetup
 
@@ -98,6 +99,7 @@ class TradingAgentsGraph:
             self.deep_thinking_llm,
             self.conditional_logic,
             max_tool_rounds,
+            LayaDecisionAdapter.from_config(self.config),
         )
 
         self.propagator = Propagator(
@@ -461,6 +463,7 @@ class TradingAgentsGraph:
             "investment_plan": final_state["investment_plan"],
             "final_trade_decision": final_state["final_trade_decision"],
             "final_rating": run_rating(final_state),
+            "laya_assessments": final_state.get("laya_assessments", {}),
             "run_settings": self.run_settings(),
         }
 

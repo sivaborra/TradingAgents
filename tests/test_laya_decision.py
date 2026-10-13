@@ -187,6 +187,24 @@ def test_assessment_renderer_shows_probabilities_and_shadow_caveat():
 
 
 @pytest.mark.unit
+def test_cli_final_report_displays_laya_assessments(capsys):
+    from cli.display import display_complete_report
+
+    display_complete_report({
+        "laya_assessments": {
+            "portfolio": {
+                "status": "ok",
+                "answer": {"choice": "Hold", "probabilities": {"Hold": 1.0}},
+            }
+        }
+    })
+
+    output = capsys.readouterr().out
+    assert "Laya Shadow Assessments" in output
+    assert "Hold: 100.0%" in output
+
+
+@pytest.mark.unit
 def test_transport_failure_is_fail_open(monkeypatch):
     def fail(*args, **kwargs):
         raise requests.ConnectionError("offline")
@@ -203,6 +221,31 @@ def test_disabled_node_does_not_change_graph_state():
     node = create_laya_assessment_node(None, "research")
 
     assert node({"investment_plan": "Buy"}) == {}
+
+
+@pytest.mark.unit
+def test_sequential_assessments_accumulate_in_graph_state():
+    from langgraph.graph import END, START, StateGraph
+
+    from tradingagents.agents.state import AgentState
+
+    class Adapter:
+        def assess(self, phase, state):
+            return {"status": "ok", "phase": phase}
+
+    workflow = StateGraph(AgentState)
+    workflow.add_node("research", create_laya_assessment_node(Adapter(), "research"))
+    workflow.add_node("trader", create_laya_assessment_node(Adapter(), "trader"))
+    workflow.add_edge(START, "research")
+    workflow.add_edge("research", "trader")
+    workflow.add_edge("trader", END)
+
+    final_state = workflow.compile().invoke({})
+
+    assert final_state["laya_assessments"] == {
+        "research": {"status": "ok", "phase": "research"},
+        "trader": {"status": "ok", "phase": "trader"},
+    }
 
 
 @pytest.mark.unit
@@ -228,19 +271,19 @@ def test_graph_places_assessments_at_decision_boundaries(monkeypatch):
         "create_neutral_debator",
         "create_conservative_debator",
         "create_portfolio_manager",
-        "create_msg_delete",
     ):
         monkeypatch.setattr(graph_setup, name, empty_node)
 
-    tool_nodes = {
-        name: RunnableLambda(lambda state: {})
-        for name in ("market", "social", "news", "fundamentals")
-    }
+    monkeypatch.setattr(
+        graph_setup,
+        "_analyst_graph",
+        lambda spec, agent, max_tool_rounds: RunnableLambda(lambda state: {}),
+    )
     workflow = graph_setup.GraphSetup(
         object(),
         object(),
-        tool_nodes,
         ConditionalLogic(max_debate_rounds=1, max_risk_discuss_rounds=1),
+        1,
     ).setup_graph()
     edges = {
         (edge.source, edge.target)

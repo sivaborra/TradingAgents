@@ -16,6 +16,10 @@ _ENV_OVERRIDES = {
     "TRADINGAGENTS_DEEP_THINK_BACKEND_URL":    "deep_think_backend_url",
     "TRADINGAGENTS_QUICK_THINK_BACKEND_URL":   "quick_think_backend_url",
     "TRADINGAGENTS_LLM_BACKEND_URL":      "backend_url",
+    "TRADINGAGENTS_LAYA_SHADOW_ENABLED":  "laya_shadow_enabled",
+    "TRADINGAGENTS_LAYA_BASE_URL":        "laya_base_url",
+    "TRADINGAGENTS_LAYA_MODEL":           "laya_model",
+    "TRADINGAGENTS_LAYA_TIMEOUT":         "laya_timeout",
     "TRADINGAGENTS_OUTPUT_LANGUAGE":      "output_language",
     "TRADINGAGENTS_MAX_DEBATE_ROUNDS":    "max_debate_rounds",
     "TRADINGAGENTS_MAX_RISK_ROUNDS":      "max_risk_discuss_rounds",
@@ -92,6 +96,10 @@ def build_default_config() -> dict:
         "llm_provider": "openai",
         "deep_think_llm": "gpt-6-sol",
         "quick_think_llm": "gpt-6-luna",
+        "laya_shadow_enabled": False,
+        "laya_base_url": None,
+        "laya_model": "laya:latest",
+        "laya_timeout": 45,
         # When None, each provider's client falls back to its own default endpoint
         # (api.openai.com for OpenAI, generativelanguage.googleapis.com for Gemini, ...).
         # The CLI overrides this per provider when the user picks one. Keeping a

@@ -309,6 +309,10 @@ config["deep_think_llm"] = "claude-opus-5-5"
 
 A tier on its own provider uses that provider's key and default endpoint; set `quick_think_backend_url` or `deep_think_backend_url` for a local or relay endpoint. The `TRADINGAGENTS_DEEP_THINK_PROVIDER` and `TRADINGAGENTS_QUICK_THINK_PROVIDER` variables set them for the CLI, together with the tier's model variable.
 
+### Optional Laya shadow assessments
+
+The optional Ollaya adapter records typed assessments after the Research Manager, Trader, risk review, and Portfolio Manager. It is disabled by default and never changes the trading graph's decisions. To enable it, set `TRADINGAGENTS_LAYA_SHADOW_ENABLED=true` and configure `TRADINGAGENTS_LAYA_BASE_URL` to the Ollaya service root (for example, `http://127.0.0.1:11435`). `TRADINGAGENTS_LAYA_MODEL` defaults to `laya:latest`; `TRADINGAGENTS_LAYA_TIMEOUT` defaults to 45 seconds. If the service requires authentication, set `OLLAYA_API_KEY`. The assessments appear in the CLI and saved report as shadow-only output; their class probabilities are not probabilities of profit.
+
 See `tradingagents/default_config.py` for all configuration options.
 
 ### Fundamentals as filed

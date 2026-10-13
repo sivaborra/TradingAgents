@@ -19,6 +19,23 @@ def _state():
         "trader_investment_plan": "TRADE",
         "risk_debate_state": {"neutral_history": "NEUTRAL"},
         "final_trade_decision": "PM DECISION",
+        "laya_assessments": {
+            "portfolio": {
+                "status": "ok",
+                "model": "laya:en",
+                "answer": {
+                    "choice": "Hold",
+                    "probabilities": {
+                        "Buy": 0.1,
+                        "Overweight": 0.05,
+                        "Hold": 0.7,
+                        "Trim": 0.1,
+                        "Sell": 0.03,
+                        "Insufficient evidence": 0.02,
+                    },
+                },
+            }
+        },
     }
 
 
@@ -36,9 +53,17 @@ def test_write_report_tree_creates_files(tmp_path):
     assert (tmp_path / "2_research" / "manager.md").read_text() == "RM PLAN"
     assert (tmp_path / "3_trading" / "trader.md").read_text() == "TRADE"
     assert (tmp_path / "5_portfolio" / "decision.md").read_text() == "PM DECISION"
+    laya_report = (tmp_path / "5_portfolio" / "laya_shadow.md").read_text()
+    assert "Final portfolio action:** Hold" in laya_report
+    assert "Hold: 70.0%" in laya_report
     complete = out.read_text()
     assert "Trading Analysis Report: AAPL" in complete
     assert "MKT" in complete and "PM DECISION" in complete
+    assert "Laya Shadow Assessments" in complete
+    assert "not probabilities of profit" in complete
+    html = (tmp_path / "complete_report.html").read_text()
+    assert "Laya Shadow Assessments" in html
+    assert "Hold: 70.0%" in html
 
 
 @pytest.mark.unit

@@ -19,6 +19,7 @@ from tradingagents.graph.analyst_execution import (
     ANALYST_NODE_SPECS,
     AnalystExecutionPlan,
 )
+from tradingagents.graph.laya_decision import render_laya_assessments
 
 console = Console()
 
@@ -435,6 +436,10 @@ def display_complete_report(final_state):
     if final_state.get("final_trade_decision"):
         console.print(Panel("[bold]V. Portfolio Manager Decision[/bold]", border_style="green"))
         console.print(Panel(Markdown(final_state["final_trade_decision"]), title="Portfolio Manager", border_style="blue", padding=(1, 2)))
+
+    laya_summary = render_laya_assessments(final_state.get("laya_assessments"))
+    if laya_summary:
+        console.print(Panel(Markdown(laya_summary), title="Laya Shadow Assessments", border_style="cyan"))
 
 
 def update_research_team_status(status):
